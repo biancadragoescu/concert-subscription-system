@@ -11,7 +11,7 @@ import java.util.List;
 public class Pass {
     private int id;
     private int concerts_available;
-    private int price;
+    private Double price;
     private List<Concert> concerts;
 
     public int getId() {
@@ -30,11 +30,11 @@ public class Pass {
         this.concerts_available = concerts_available;
     }
 
-    public int getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

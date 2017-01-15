@@ -9,6 +9,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import model.Client;
 import model.User;
 import service.ClientService;
 import view.AdminView;
@@ -48,7 +49,8 @@ public class LoginFormController {
                 if(user.isIsAdmin()) {
                     getAdminViewController().setUp();
                 } else {
-                    getClientController().setUp();
+                    Client client = getClientService().getClientByUsername(username);
+                    getClientController().setUp(client);
                 }
             }
         }
