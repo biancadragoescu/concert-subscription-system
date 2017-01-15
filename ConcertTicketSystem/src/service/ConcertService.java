@@ -21,8 +21,12 @@ public class ConcertService {
          return getConcertDao().getAllConcerts();
     }
     
-    public void addConcert(String name, double price, java.sql.Date date, String genre, String artists, int seats) {
-        getConcertDao().addConcert(name, price, date, genre, artists, seats);
+    public void addConcert(String name, double price, java.sql.Date date, String genre, String artists, int availableSeats, int initialSeats) {
+        getConcertDao().addConcert(name, price, date, genre, artists, availableSeats, initialSeats);
+    }
+    
+    public boolean updateConcert(int concertId, String name, double price, java.sql.Date date, String genre, String artists, int availableSeats, int initialSeats) {
+       return getConcertDao().updateConcert(concertId, name, price, date, genre, artists, availableSeats, initialSeats);
     }
 
     public ConcertDao getConcertDao() {

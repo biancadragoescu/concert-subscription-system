@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +58,7 @@ public class ConcertDao {
         return concerts;
     }
     
-    public void addConcert(String name, double price, java.sql.Date date, String genre, String artists, int seats) {
+    public void addConcert(String name, double price, java.sql.Date date, String genre, String artists, int availableSeats, int initialSeats) {
         String insertUserStatement = "INSERT INTO concerts(name, price, date, musicGenre, artists, initialNumberOfSeats, numberOfAvailableSeats) values(?,?,?,?,?,?,?)";
         
         Connection con = null;
@@ -69,8 +70,8 @@ public class ConcertDao {
             insertUserPrepare.setDate(3, date);
             insertUserPrepare.setString(4, genre);
             insertUserPrepare.setString(5, artists);
-            insertUserPrepare.setInt(6, seats);
-            insertUserPrepare.setInt(7, seats);
+            insertUserPrepare.setInt(6, availableSeats);
+            insertUserPrepare.setInt(7, initialSeats);
             insertUserPrepare.execute();
             
             con.close();
@@ -78,6 +79,40 @@ public class ConcertDao {
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public boolean updateConcert(int concertId, String name, double price, java.sql.Date date, String genre, String artists, int availableSeats, int initialSeats) {
+        String statementAsString = "UPDATE CONCERTS SET name=?, date=?, price=?, musicgenre=?, artists=?, initialNumberOfSeats=?, numberOfAvailableSeats=? WHERE id=?";
+        Connection con = null;
+        boolean success = true;
+        
+        try {
+            con = DBUtils.getConnection();
+            PreparedStatement statement = con.prepareStatement(statementAsString);
+            statement.setString(1, name);
+            statement.setDate(2, date);
+            statement.setDouble(3, price);
+            statement.setString(4, genre);
+            statement.setString(5, artists);
+            statement.setInt(6, initialSeats);
+            statement.setInt(7, availableSeats);
+            statement.setInt(8, concertId);
+            statement.executeUpdate();
+            
+            con.close();
+        } catch (SQLException ex) {
+            success = false;
+            Logger.getLogger(ConcertDao.class.getName()).log(Level.SEVERE, null, ex);
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(ConcertDao.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+        }
+         
+        return success;
     }
     
     public Concert getConcertById(int id)

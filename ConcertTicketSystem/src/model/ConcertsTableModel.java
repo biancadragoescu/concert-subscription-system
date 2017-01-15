@@ -13,7 +13,7 @@ import javax.swing.table.AbstractTableModel;
  * @author Cristina
  */
 public class ConcertsTableModel extends AbstractTableModel {
-    private final String[] columnNames = {"ID", "Name", "Price", "Date", "Music genre", "Artists", "Initial number of seats", "Number of available seats"};
+    private final String[] columnNames = {"ID", "Name", "Price", "Date", "Music genre", "Artists", "Initial seats", "Available seats"};
     private List<Concert> concerts;
 
     public ConcertsTableModel(List<Concert> concerts) {
@@ -80,5 +80,10 @@ public class ConcertsTableModel extends AbstractTableModel {
 
     public void setConcerts(List<Concert> concerts) {
         this.concerts = concerts;
+    }
+    
+    public void addConcert(Concert concert){
+        concerts.add(concert);
+        fireTableDataChanged();
     }
 }   

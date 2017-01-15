@@ -96,11 +96,11 @@ public class UserDao {
         Connection con = null;
         try {
             con = DBUtils.getConnection();
-            PreparedStatement insertUserPrepare = con.prepareStatement(insertUserStatement);
-            insertUserPrepare.setString(1, username);
-            insertUserPrepare.setString(2, password);
-            insertUserPrepare.setBoolean(3, false);
-            insertUserPrepare.execute();
+            PreparedStatement addClientPrepare = con.prepareStatement(insertUserStatement);
+            addClientPrepare.setString(1, username);
+            addClientPrepare.setString(2, password);
+            addClientPrepare.setBoolean(3, false);
+            addClientPrepare.execute();
             
             PreparedStatement insertUserInfoPrepare = con.prepareStatement(insertUserDetails);
             insertUserInfoPrepare.setString(1, username);
