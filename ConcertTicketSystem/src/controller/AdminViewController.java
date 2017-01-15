@@ -8,18 +8,22 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 import model.Client;
 import service.ClientService;
+import service.ConcertService;
 import view.AdminView;
 
 public class AdminViewController {
     private AdminView adminView;
     private ClientService clientService;
+    private ConcertService concertService;
     
     public AdminViewController(AdminView adminView) {
         this.adminView = adminView;
         clientService = new ClientService();
+        concertService = new ConcertService();
     }
     
     public void setUp() {
@@ -29,6 +33,7 @@ public class AdminViewController {
     
     protected void initializeActionListeners() {
         getAdminView().setAddClientButtonActionListener(new AddClientButtonActionListener());
+        getAdminView().setAddConcertButtonActionListener(new AddConcertButtonActionListener());
     }
     
     protected void displayAdminView() {
@@ -39,9 +44,9 @@ public class AdminViewController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String username = getAdminView().getUsername();
-            String password = getAdminView().getPassword();
-            String fullName = getAdminView().getFullname();
+            String username = getAdminView().getClientUsername();
+            String password = getAdminView().getClientPassword();
+            String fullName = getAdminView().getClientFullname();
 
             Client client = getClientService().getClientByUsername(username);
             if(client != null) {
@@ -54,6 +59,22 @@ public class AdminViewController {
         }
     }
     
+    private class AddConcertButtonActionListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String concertName = getAdminView().getConcertName();
+            Date concertDate = getAdminView().getConcertDate();
+            double concertPrice = getAdminView().getConcertPrice();
+            String concertGenre = getAdminView().getConcertGenre();
+            String concertArtists = getAdminView().getConcertArtists();
+            int seats = getAdminView().getAvailableSeats();
+            
+            getConcertService().addConcert(concertName, concertPrice, concertDate, concertGenre, concertArtists, seats);
+            JOptionPane.showMessageDialog(getAdminView(), "Concert successfully added", "Info", JOptionPane.INFORMATION_MESSAGE);
+        }        
+    }
+    
     public AdminView getAdminView() {
         return adminView;
     }
@@ -61,4 +82,14 @@ public class AdminViewController {
     public ClientService getClientService() {
         return clientService;
     }
+
+    public ConcertService getConcertService() {
+        return concertService;
+    }
+
+    public void setConcertService(ConcertService concertService) {
+        this.concertService = concertService;
+    }
+    
+    
 }

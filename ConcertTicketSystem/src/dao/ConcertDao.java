@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +55,29 @@ public class ConcertDao {
         }
   
         return concerts;
+    }
+    
+    public void addConcert(String name, double price, java.sql.Date date, String genre, String artists, int seats) {
+        String insertUserStatement = "INSERT INTO concerts(name, price, date, musicGenre, artists, initialNumberOfSeats, numberOfAvailableSeats) values(?,?,?,?,?,?,?)";
+        
+        Connection con = null;
+        try {
+            con = DBUtils.getConnection();
+            PreparedStatement insertUserPrepare = con.prepareStatement(insertUserStatement);
+            insertUserPrepare.setString(1, name);
+            insertUserPrepare.setDouble(2, price);
+            insertUserPrepare.setDate(3, date);
+            insertUserPrepare.setString(4, genre);
+            insertUserPrepare.setString(5, artists);
+            insertUserPrepare.setInt(6, seats);
+            insertUserPrepare.setInt(7, seats);
+            insertUserPrepare.execute();
+            
+            con.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public Concert getConcertById(int id)

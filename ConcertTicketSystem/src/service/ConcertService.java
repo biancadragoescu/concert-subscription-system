@@ -20,6 +20,10 @@ public class ConcertService {
     public List<Concert> getAllConcerts() {
          return getConcertDao().getAllConcerts();
     }
+    
+    public void addConcert(String name, double price, java.sql.Date date, String genre, String artists, int seats) {
+        getConcertDao().addConcert(name, price, date, genre, artists, seats);
+    }
 
     public ConcertDao getConcertDao() {
         return concertDao;

@@ -111,6 +111,13 @@ public class UserDao {
             
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
         }
     }
     
