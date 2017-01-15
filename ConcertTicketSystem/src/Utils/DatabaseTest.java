@@ -16,11 +16,11 @@ public class DatabaseTest {
    Statement stmt = null;
    try{
       //STEP 2: Register JDBC driver
-      Class.forName("com.mysql.jdbc.Driver");
+//      Class.forName("com.mysql.jdbc.Driver");
 
       //STEP 3: Open a connection
       System.out.println("Connecting to a selected database...");
-      conn = DriverManager.getConnection(DB_URL, USER, PASS);
+      conn = DBUtils.getConnection();
       System.out.println("Connected database successfully...");
       
       //STEP 4: Execute a query
