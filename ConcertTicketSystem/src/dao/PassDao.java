@@ -6,32 +6,36 @@
 
 package dao;
 
+import Utils.DBUtils;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class PassDao {
-    private int id;
-    private int number_concerts_available;
-    private int price;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getNumber_concerts_available() {
-        return number_concerts_available;
-    }
-
-    public void setNumber_concerts_available(int number_concerts_available) {
-        this.number_concerts_available = number_concerts_available;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
+    
+    public void addPass(Double price, int remainingNumberOfConcerts) {
+        String insertPassStatement = "INSERT INTO passes(price, remainingNumberOfConcerts) values (?,?)";
+        
+        Connection con = null;
+        try {
+            con = DBUtils.getConnection();
+            PreparedStatement insertPassPrepare = con.prepareStatement(insertPassStatement);
+            insertPassPrepare.setDouble(1, price);
+            insertPassPrepare.setInt(2, remainingNumberOfConcerts);
+            insertPassPrepare.execute();
+          
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+        }
+    } 
 }
