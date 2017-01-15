@@ -6,6 +6,22 @@
 
 package service;
 
+import dao.ConcertDao;
+import java.util.List;
+import model.Concert;
+
 public class ConcertService {
+    private ConcertDao concertDao;
+
+    public ConcertService() {
+        this.concertDao = new ConcertDao();
+    }
     
+    public List<Concert> getAllConcerts() {
+         return getConcertDao().getAllConcerts();
+    }
+
+    public ConcertDao getConcertDao() {
+        return concertDao;
+    }
 }
