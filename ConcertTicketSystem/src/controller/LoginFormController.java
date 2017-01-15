@@ -16,6 +16,7 @@ import view.ClientView;
 import view.LoginView;
 
 public class LoginFormController {
+    private ClientController clientController;
     ClientService clientService;
     private AdminView adminView;
     private ClientView clientView;
@@ -26,6 +27,7 @@ public class LoginFormController {
         this.clientView = clientView;
         this.loginView = new LoginView();
         clientService = new ClientService();
+        this.clientController = new ClientController(clientView);
     }
     
     public void setUp() {
@@ -46,7 +48,7 @@ public class LoginFormController {
                 if(user.isIsAdmin()) {
                     getAdminView().setVisible(true);
                 } else {
-                    getClientView().setVisible(true);
+                    getClientController().setUp();
                 }
             }
         }
@@ -96,6 +98,12 @@ public class LoginFormController {
     public void setClientView(ClientView clientView) {
         this.clientView = clientView;
     }
-    
-    
+
+    public ClientController getClientController() {
+        return clientController;
+    }
+
+    public void setClientController(ClientController clientController) {
+        this.clientController = clientController;
+    }
 }
