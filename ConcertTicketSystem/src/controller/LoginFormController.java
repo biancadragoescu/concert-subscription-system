@@ -17,12 +17,12 @@ import view.LoginView;
 
 public class LoginFormController {
     ClientService clientService;
-    private AdminView adminView;
     private ClientView clientView;
     private LoginView loginView;
+    private AdminViewController adminViewController;
     
     public LoginFormController(AdminView adminView, ClientView clientView) {
-        this.adminView = adminView;
+        this.adminViewController = new AdminViewController(adminView);
         this.clientView = clientView;
         this.loginView = new LoginView();
         clientService = new ClientService();
@@ -44,7 +44,7 @@ public class LoginFormController {
             User user = getClientService().getUserByUsernameAndPassword(username, password);
             if(user != null) {
                 if(user.isIsAdmin()) {
-                    getAdminView().setVisible(true);
+                    getAdminViewController().setUp();
                 } else {
                     getClientView().setVisible(true);
                 }
@@ -69,8 +69,7 @@ public class LoginFormController {
         @Override
         public void actionPerformed(ActionEvent e) {
             loginUser();
-        }
-        
+        }    
     }
     
     protected ClientService getClientService() {
@@ -81,12 +80,12 @@ public class LoginFormController {
         return loginView;
     }
 
-    public AdminView getAdminView() {
-        return adminView;
+    public AdminViewController getAdminViewController() {
+        return adminViewController;
     }
 
-    public void setAdminView(AdminView adminView) {
-        this.adminView = adminView;
+    public void setAdminViewController(AdminViewController adminViewController) {
+        this.adminViewController = adminViewController;
     }
 
     public ClientView getClientView() {

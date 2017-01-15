@@ -18,7 +18,40 @@ import model.User;
 
 public class UserDao {
     public Client getClientByUsername(String username) {
-        return null;
+        String stringStatement = "SELECT u.username, password, isAdmin, name FROM USERS as u LEFT JOIN USERSINFORMATION as ui on u.username = ui.username where u.username = ?";
+        Client client = null;
+        Connection connection = null;
+        
+        try {
+            connection = DBUtils.getConnection();
+            PreparedStatement getClientByUsername = connection.prepareStatement(stringStatement);
+            getClientByUsername.setString(1, username);
+            ResultSet results = getClientByUsername.executeQuery();
+            if(results.first()) {
+               String usernameResult = results.getString(1);
+               String passwordResult = results.getString(2);
+               boolean isAdminResult = results.getBoolean(3);
+               String fullNameResult = results.getString(4);
+               
+               client = new Client();
+               client.setUsername(usernameResult);
+               client.setPassword(passwordResult);
+               client.setIsAdmin(isAdminResult);
+               client.setName(fullNameResult);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            if(connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+        }
+     
+        return client;
     }
     
     public User getUserByUsernameAndPassword(String username, String password) {
@@ -56,7 +89,29 @@ public class UserDao {
         return user;
     }
     
-    public void createClient(String username, String password, String fullName) {
+    public void addClient(String username, String password, String fullName) {
+        String insertUserStatement = "INSERT INTO USERS(username, password, isAdmin) values (?,?,?)";
+        String insertUserDetails = "INSERT INTO USERSINFORMATION(username, name) values	(?,?)";
         
+        Connection con = null;
+        try {
+            con = DBUtils.getConnection();
+            PreparedStatement insertUserPrepare = con.prepareStatement(insertUserStatement);
+            insertUserPrepare.setString(1, username);
+            insertUserPrepare.setString(2, password);
+            insertUserPrepare.setBoolean(3, false);
+            insertUserPrepare.execute();
+            
+            PreparedStatement insertUserInfoPrepare = con.prepareStatement(insertUserDetails);
+            insertUserInfoPrepare.setString(1, username);
+            insertUserInfoPrepare.setString(2, fullName);
+            insertUserInfoPrepare.execute();
+          
+            con.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
 }
