@@ -40,7 +40,7 @@ public class ClientController {
         getClientView().setBuyPassButtonActionListener(new BuyPassButtonActionListener());
     }
 
-    private void displayClientView(Client client) {
+    private void displayClientView(final Client client) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
