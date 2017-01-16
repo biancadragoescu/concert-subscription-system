@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Client;
+import model.Pass;
 import model.User;
 
 public class UserDao {
@@ -121,4 +122,31 @@ public class UserDao {
         }
     }
     
+    public boolean updateClientPass(String username, int passId) {
+        String statementAsString = "UPDATE usersInformation SET idPass=? WHERE username=?";
+        Connection con = null;
+        boolean success = true;
+        
+        try {
+            con = DBUtils.getConnection();
+            PreparedStatement statement = con.prepareStatement(statementAsString);
+            statement.setInt(1, passId);
+            statement.setString(2, username);
+            statement.executeUpdate();
+            
+            con.close();
+        } catch (SQLException ex) {
+            success = false;
+            Logger.getLogger(ConcertDao.class.getName()).log(Level.SEVERE, null, ex);
+            if(con != null) {
+                try {
+                    con.close();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(ConcertDao.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+        }
+         
+        return success;
+    }
 }

@@ -8,6 +8,7 @@ package service;
 
 import dao.UserDao;
 import model.Client;
+import model.Pass;
 import model.User;
 
 public class ClientService {
@@ -27,6 +28,10 @@ public class ClientService {
     
     public void addClient(String username, String password, String fullname) {
         getUserDao().addClient(username, password, fullname);
+    }
+    
+    public boolean updateClientPass(String username, int passId) {
+        return getUserDao().updateClientPass(username, passId);
     }
     
     protected UserDao getUserDao() {

@@ -41,12 +41,6 @@ public class ClientView extends javax.swing.JFrame {
         nameLable = new javax.swing.JLabel();
         buyPassButton = new javax.swing.JButton();
         renewPassButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        passIdTextField = new javax.swing.JTextField();
-        passPriceTextField = new javax.swing.JTextField();
-        remainingNrOfConcertsTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Client View");
@@ -80,18 +74,6 @@ public class ClientView extends javax.swing.JFrame {
         renewPassButton.setText("Renew pass");
         renewPassButton.setEnabled(false);
 
-        jLabel3.setText("Pass ID:");
-
-        jLabel4.setText("Pass price:");
-
-        jLabel5.setText("Remaining number of concerts:");
-
-        passIdTextField.setText("jTextField1");
-
-        passPriceTextField.setText("jTextField2");
-
-        remainingNrOfConcertsTextField.setText("jTextField3");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -104,23 +86,13 @@ public class ClientView extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nameLable))
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
-                                .addGap(64, 64, 64)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(remainingNrOfConcertsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(buyPassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(renewPassButton))
-                                    .addComponent(passIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(passPriceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(nameLable)
+                                .addGap(150, 150, 150)
+                                .addComponent(buyPassButton, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(renewPassButton)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -137,18 +109,6 @@ public class ClientView extends javax.swing.JFrame {
                     .addComponent(nameLable)
                     .addComponent(buyPassButton)
                     .addComponent(renewPassButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(passIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(passPriceTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(remainingNrOfConcertsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -168,16 +128,6 @@ public class ClientView extends javax.swing.JFrame {
     
     public void setUserInfo(Client client) {
         nameLable.setText(client.getName());
-        Pass pass = client.getPass();
-        if (pass != null) {
-            passIdTextField.setText(String.valueOf(client.getPass().getId()));
-            passPriceTextField.setText(String.valueOf(client.getPass().getPrice()));
-            remainingNrOfConcertsTextField.setText(String.valueOf(client.getPass().getConcerts_available()));
-        } else {
-            passIdTextField.setText("");
-            passPriceTextField.setText("");
-            remainingNrOfConcertsTextField.setText("");
-        }
     }
     /**
      * @param args the command line arguments
@@ -218,15 +168,9 @@ public class ClientView extends javax.swing.JFrame {
     private javax.swing.JButton buyPassButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel nameLable;
-    private javax.swing.JTextField passIdTextField;
-    private javax.swing.JTextField passPriceTextField;
-    private javax.swing.JTextField remainingNrOfConcertsTextField;
     private javax.swing.JButton renewPassButton;
     // End of variables declaration//GEN-END:variables
 }

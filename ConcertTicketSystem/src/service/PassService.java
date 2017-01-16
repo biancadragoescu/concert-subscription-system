@@ -20,7 +20,15 @@ public class PassService {
     public void addPass(Pass pass) {
         getPassDao().addPass(pass.getPrice(), pass.getConcerts_available());
     }
-
+    
+    public int getLastPassId() {
+        return getPassDao().getLastPassId();
+    }
+    
+    public Pass getPassById(int id) {
+        return getPassDao().getPassById(id);
+    }
+            
     public PassDao getPassDao() {
         return passDao;
     }
